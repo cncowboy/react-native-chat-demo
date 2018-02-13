@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "bundle-ios": "react-native bundle --entry-file index.ios.js --bundle-output ios/bundles/main.jsbundle --platform 'ios' --assets-dest ./ios/bundles  --dev false --reset-cache",
+    "bundle-android": "react-native bundle --entry-file index.android.js --bundle-output ios/bundles/main.jsbundle --platform 'ios' --assets-dest ./ios/bundles  --dev false --reset-cache",
     "test": "jest"
   },
   "dependencies": {

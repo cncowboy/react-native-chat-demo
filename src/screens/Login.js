@@ -22,7 +22,8 @@ export default class Login extends Component {
 
     loginIn() {
         const {navigator} = this.props;
-        NimSession.login(this.state.name,md5.createHash(this.state.password)).then((data)=>{
+        //NimSession.login(this.state.name,md5.createHash(this.state.password)).then((data)=>{
+        NimSession.login(this.state.name,this.state.password).then((data)=>{
             global.imaccount = this.state.name;
             navigator.resetTo({
                 screen:'ImDemo.ChatList',
