@@ -24,7 +24,8 @@ export default class Login extends Component {
     loginIn() {
         const {navigation} = this.props;
         console.log(navigation)
-        NimSession.login(this.state.name,md5.createHash(this.state.password)).then((data)=>{
+        //NimSession.login(this.state.name,md5.createHash(this.state.password)).then((data)=>{
+        NimSession.login(this.state.name,this.state.password).then((data)=>{
             console.info(data);
             global.imaccount = this.state.name;
             navigation.dispatch(NavigationActions.reset({
@@ -46,7 +47,7 @@ export default class Login extends Component {
                         style={styles.textViewStyle}
                         value={this.state.name}
                         underlineColorAndroid="transparent"
-                        keyboardType="numeric"
+        //                keyboardType="numeric"
                         placeholder="请输入帐号"
                         autoCapitalize="none"
                         autoCorrect={false}

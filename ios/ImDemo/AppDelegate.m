@@ -16,6 +16,8 @@
 
 #define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
+static NSString *const kRCTJsLocationKey = @"RCT_jsLocation";
+
 @interface AppDelegate (){
   
 }
@@ -28,6 +30,8 @@
 {
   NSURL *jsCodeLocation;
 
+  [[NSUserDefaults standardUserDefaults] setObject:@"192.168.31.200" forKey:kRCTJsLocationKey];
+  //jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -47,7 +51,7 @@
   [[NIMSDKConfig sharedConfig] setDelegate:self.sdkConfigDelegate];
   [[NIMSDKConfig sharedConfig] setShouldSyncUnreadCount:YES];
   
-  [[NIMSDK sharedSDK] registerWithAppID:@"8cafb31bb1c3750349340dec765df1c5" cerName:@""];
+  [[NIMSDK sharedSDK] registerWithAppID:@"0f1d660947a9b57ae34ae39029a93d79" cerName:@""];
   
   //注册自定义消息的解析器
   [NIMCustomObject registerCustomDecoder:[DWCustomAttachmentDecoder new]];
