@@ -231,6 +231,12 @@ class Chat extends React.Component {
                     </TouchableOpacity>
                     <Text style={{marginTop:6, fontSize:12}}>转账</Text>
                 </View> : null}
+                <View style={[styles.actionCol]}>
+                    <TouchableOpacity style={styles.iconTouch} onPress={this.handleCustomMessageClick.bind(this)}>
+                        {Svgs.iconTransfer}
+                    </TouchableOpacity>
+                    <Text style={{marginTop:6, fontSize:12}}>自定义消息</Text>
+                </View>
             </View>
         );
     }
@@ -259,9 +265,10 @@ class Chat extends React.Component {
         }
         if (message.msgType === 'image' && message.extend) {
             AuroraIController.hidenFeatureView(true)
-            AuroraIController.showOrigImage(message.extend);
         }
-
+        if (message.msgType === 'video' && message.extend) {
+            AuroraIController.hidenFeatureView(true)
+        }
         if(message.msgType === 'location'  && message.extend){
             navigator.push({
                 screen:"ImDemo.LocationView",
@@ -309,6 +316,13 @@ class Chat extends React.Component {
         }).then(image => {
             NimSession.sendImageMessages(image.path,"myName");
         });
+        // ImagePicker.openPicker({
+        //     mediaType:'video',
+        //     loadingLabelText:'请稍候...'
+        // }).then((video) => {
+        //     console.log(video);
+        //     NimSession.sendVideoMessage(video.path, 'duration', 'width', 'height', 'displayName');
+        // });
     }
     onLocation(coordinate) {
         this.sendLocationImage(coordinate.latitude,coordinate.longitude,coordinate.address);
@@ -326,6 +340,15 @@ class Chat extends React.Component {
     handleTransferClick(){
         const {navigator,session} = this.props;
         Toast.show('需要自行实现');
+    }
+    handleCustomMessageClick(){
+        const {navigator,session} = this.props;
+        var h5Content = `
+                  <h5>This is a custom message. </h5>
+                  <button type="button">Click Me!</button>
+                  <h5>ok</h5>
+                  `
+        NimSession.sendCustomMessage({Width:260,Height:120,pushContent:'发来一条自定义消息',recentContent:'[自定义消息]',content:h5Content});
     }
     handlePacketClick(){
         const {session} = this.props;
